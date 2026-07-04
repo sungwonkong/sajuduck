@@ -17,8 +17,9 @@ export async function generateMetadata({ params }: ResultPageProps): Promise<Met
   const { id } = await params;
   const resultId = normalizeResultId(id);
   const result = getResultById(resultId);
-  const url = `/result/${resultId}`;
-  const imageUrl = `${url}/opengraph-image`;
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://sajuduck.vercel.app";
+  const url = `${siteUrl}/result/${resultId}`;
+  const imageUrl = `${url}/image.png`;
   const description = `${result.oneLiner} 사주짤 ${resultId}번 결과를 확인해보세요.`;
 
   return {
@@ -35,6 +36,7 @@ export async function generateMetadata({ params }: ResultPageProps): Promise<Met
       images: [
         {
           url: imageUrl,
+          type: "image/png",
           width: 1200,
           height: 630,
           alt: `${result.title} 결과 카드`,

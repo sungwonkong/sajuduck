@@ -1,12 +1,8 @@
 import { TOTAL_RESULT_COUNT } from "@/data/results";
 import { normalizeResultId } from "@/lib/fortune";
-import { createResultOgImage, resultOgImageSize } from "@/lib/result-og-image";
+import { createResultOgImage } from "@/lib/result-og-image";
 
-export const alt = "사주짤 결과 카드";
-export const size = resultOgImageSize;
-export const contentType = "image/png";
-
-type OpenGraphImageProps = {
+type ResultImageRouteContext = {
   params: Promise<{
     id: string;
   }>;
@@ -18,7 +14,7 @@ export function generateStaticParams() {
   }));
 }
 
-export default async function OpenGraphImage({ params }: OpenGraphImageProps) {
+export async function GET(_request: Request, { params }: ResultImageRouteContext) {
   const { id } = await params;
   const resultId = normalizeResultId(id);
 
