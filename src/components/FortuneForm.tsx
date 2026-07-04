@@ -2,8 +2,10 @@
 
 import { useRouter } from "next/navigation";
 import { Sparkles } from "lucide-react";
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 import { Gender, mapInputToResultId } from "@/lib/fortune";
+
+const STORAGE_KEY = "sajuzzal:last-input";
 
 const birthTimes = [
   { value: "unknown", label: "잘 모름" },
@@ -23,13 +25,68 @@ const genders: { value: Gender; label: string }[] = [
   { value: "male", label: "남성" },
 ];
 
+type SavedFortuneInput = {
+  birthDate: string;
+  birthTime: string;
+  gender: Gender;
+};
+
 export function FortuneForm() {
   const router = useRouter();
   const [birthDate, setBirthDate] = useState("");
   const [birthTime, setBirthTime] = useState("unknown");
   const [gender, setGender] = useState<Gender>("none");
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const canSubmit = useMemo(() => birthDate.length > 0, [birthDate]);
+
+  useEffect(() => {
+    const loadSavedInput = window.setTimeout(() => {
+      try {
+        const savedInput = window.localStorage.getItem(STORAGE_KEY);
+
+        if (!savedInput) {
+          return;
+        }
+
+        const parsedInput = JSON.parse(savedInput) as Partial<SavedFortuneInput>;
+        const hasValidBirthTime = birthTimes.some((time) => time.value === parsedInput.birthTime);
+        const hasValidGender = genders.some((item) => item.value === parsedInput.gender);
+
+        if (typeof parsedInput.birthDate === "string") {
+          setBirthDate(parsedInput.birthDate);
+        }
+
+        if (hasValidBirthTime && typeof parsedInput.birthTime === "string") {
+          setBirthTime(parsedInput.birthTime);
+        }
+
+        if (hasValidGender && parsedInput.gender) {
+          setGender(parsedInput.gender);
+        }
+      } catch {
+        window.localStorage.removeItem(STORAGE_KEY);
+      } finally {
+        setIsLoaded(true);
+      }
+    }, 0);
+
+    return () => window.clearTimeout(loadSavedInput);
+  }, []);
+
+  useEffect(() => {
+    if (!isLoaded) {
+      return;
+    }
+
+    const inputToSave: SavedFortuneInput = {
+      birthDate,
+      birthTime,
+      gender,
+    };
+
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(inputToSave));
+  }, [birthDate, birthTime, gender, isLoaded]);
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -106,7 +163,7 @@ export function FortuneForm() {
       </button>
 
       <p className="mt-4 text-center text-xs font-bold leading-5 text-zinc-500">
-        입력값은 결과 계산에만 사용되고 저장되지 않습니다.
+        입력값은 이 브라우저에만 저장되어 다음 방문 때 자동으로 채워집니다.
       </p>
     </form>
   );
