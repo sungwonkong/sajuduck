@@ -48,22 +48,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-y-[3px] border-zinc-950 bg-white px-5 py-10">
-        <div className="mx-auto grid max-w-5xl gap-4 md:grid-cols-3">
-          {[
-            ["120개 타입", "60갑자에 가벼운 성향 축을 더해 매번 같은 입력은 같은 카드로 연결됩니다."],
-            ["공유용 카드", "모바일에서 캡처해 카카오톡, 인스타 스토리에 올리기 좋은 카드 비율과 톤을 사용합니다."],
-            ["저장 없음", "입력값은 브라우저에서 결과 ID를 만드는 데만 쓰이며 DB에 저장하지 않습니다."],
-          ].map(([title, body]) => (
-            <div key={title} className="rounded-[18px] border-2 border-zinc-950 bg-amber-50 p-4 shadow-[4px_4px_0_#111]">
-              <h2 className="text-xl font-black text-zinc-950">{title}</h2>
-              <p className="mt-2 text-sm font-bold leading-6 text-zinc-700">{body}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-3xl px-5 py-10">
+      <section className="mx-auto max-w-3xl border-t-[3px] border-zinc-950 px-5 py-10">
         <h2 className="text-2xl font-black text-zinc-950">주의문구</h2>
         <p className="mt-3 text-sm font-bold leading-7 text-zinc-700">
           사주짤은 오락용 콘텐츠입니다. 실제 사주명리 해석, 상담, 의학적·법률적·재정적 조언을 제공하지 않습니다.

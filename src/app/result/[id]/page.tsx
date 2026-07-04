@@ -17,10 +17,36 @@ export async function generateMetadata({ params }: ResultPageProps): Promise<Met
   const { id } = await params;
   const resultId = normalizeResultId(id);
   const result = getResultById(resultId);
+  const url = `/result/${resultId}`;
+  const imageUrl = `${url}/opengraph-image`;
+  const description = `${result.oneLiner} 사주짤 ${resultId}번 결과를 확인해보세요.`;
 
   return {
     title: result.title,
-    description: `${result.oneLiner} 사주짤 ${resultId}번 결과를 확인해보세요.`,
+    description,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title: `사주짤 결과: ${result.title}`,
+      description,
+      url,
+      type: "website",
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: `${result.title} 결과 카드`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `사주짤 결과: ${result.title}`,
+      description,
+      images: [imageUrl],
+    },
   };
 }
 

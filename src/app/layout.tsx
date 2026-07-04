@@ -15,6 +15,7 @@ const geistMono = Geist_Mono({
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://sajuduck.vercel.app";
 const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
+const kakaoJavaScriptKey = process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -55,6 +56,9 @@ export default function RootLayout({
             crossOrigin="anonymous"
             strategy="afterInteractive"
           />
+        ) : null}
+        {kakaoJavaScriptKey ? (
+          <Script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.6/kakao.min.js" strategy="afterInteractive" />
         ) : null}
         {children}
       </body>
