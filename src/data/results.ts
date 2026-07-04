@@ -5,7 +5,19 @@ export type FortuneResult = {
   title: string;
   animal: string;
   element: string;
-  characterMood: "tiny-chaos" | "coffee-zombie" | "meeting-nod" | "wallet-cry";
+  characterMood:
+    | "tiny-chaos"
+    | "coffee-zombie"
+    | "meeting-nod"
+    | "wallet-cry"
+    | "phone-wait"
+    | "bed-gravity"
+    | "snack-rescue"
+    | "weather-chaos"
+    | "shopping-urge"
+    | "commute-luck"
+    | "battery-low"
+    | "memo-genius";
   oneLiner: string;
   description: string;
   total: FortuneGrade;
@@ -22,7 +34,6 @@ export const TOTAL_RESULT_COUNT = 120;
 const heavenlyStems = ["갑", "을", "병", "정", "무", "기", "경", "신", "임", "계"];
 const earthlyBranches = ["자", "축", "인", "묘", "진", "사", "오", "미", "신", "유", "술", "해"];
 const elements = ["나무", "불", "흙", "쇠", "물"];
-const moods: FortuneResult["characterMood"][] = ["meeting-nod", "wallet-cry", "tiny-chaos", "coffee-zombie"];
 const gradePatterns: Pick<FortuneResult, "total" | "love" | "money" | "work">[] = [
   { total: "A", love: "B", money: "B", work: "S" },
   { total: "A", love: "A", money: "S", work: "B" },
@@ -194,6 +205,48 @@ const tagPool = [
   "메모광", "물마시기", "산책운", "이모티콘", "충전필수", "단축키", "알림폭탄", "친절운", "웃참", "재부팅",
 ];
 
+function getCharacterMood(oneLiner: string, title: string): FortuneResult["characterMood"] {
+  const text = `${oneLiner} ${title}`;
+
+  if (/커피|카페인|충전|졸림|잠|이불|누웠|의자/.test(text)) {
+    return /이불|누웠|잠|의자/.test(text) ? "bed-gravity" : "coffee-zombie";
+  }
+
+  if (/통장|월급|돈|재물|택시비|배달비|영수증|할인|소비|쇼핑|장바구니|결제|쿠폰/.test(text)) {
+    return /쇼핑|장바구니|할인|결제|쿠폰/.test(text) ? "shopping-urge" : "wallet-cry";
+  }
+
+  if (/카톡|답장|읽씹|알림|단톡|이모티콘|연락|프로필|메시지/.test(text)) {
+    return "phone-wait";
+  }
+
+  if (/회의|업무|직장|문서|메일|마감|자료|고개|끄덕|단축키|카메라/.test(text)) {
+    return "meeting-nod";
+  }
+
+  if (/간식|당|초코|점심|메뉴|치킨|편의점|냉장고|먹/.test(text)) {
+    return "snack-rescue";
+  }
+
+  if (/우산|비|하늘|날씨|신발끈|신호등/.test(text)) {
+    return "weather-chaos";
+  }
+
+  if (/엘리베이터|퇴근길|출근|지각|현관문|산책/.test(text)) {
+    return "commute-luck";
+  }
+
+  if (/배터리|충전기|폰 밝기/.test(text)) {
+    return "battery-low";
+  }
+
+  if (/메모|파일명|제목|노트|저장|체크/.test(text)) {
+    return "memo-genius";
+  }
+
+  return "tiny-chaos";
+}
+
 export const results: FortuneResult[] = Array.from({ length: TOTAL_RESULT_COUNT }, (_, index) => {
   const id = index + 1;
   const gapja = `${heavenlyStems[index % heavenlyStems.length]}${earthlyBranches[index % earthlyBranches.length]}`;
@@ -207,7 +260,7 @@ export const results: FortuneResult[] = Array.from({ length: TOTAL_RESULT_COUNT 
     title: `${titleCore}${suffix}`,
     animal: gapja,
     element: elements[index % elements.length],
-    characterMood: moods[index % moods.length],
+    characterMood: getCharacterMood(oneLiner, titleCore),
     oneLiner,
     description: `${descriptionSeeds[index % descriptionSeeds.length]} ${oneLiner}라는 신호가 뜬 날이니, 너무 진지하게 붙잡기보다 가볍게 웃고 지나가면 운이 더 잘 붙습니다.`,
     ...grades,
