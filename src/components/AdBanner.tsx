@@ -30,16 +30,12 @@ export function AdBanner({ slot, className = "" }: AdBannerProps) {
   }, [client, slot]);
 
   if (!client) {
-    return (
-      <div className={`flex min-h-24 items-center justify-center rounded-[16px] border-2 border-dashed border-zinc-400 bg-white/70 px-4 text-center text-xs font-bold text-zinc-500 ${className}`}>
-        광고 영역: NEXT_PUBLIC_ADSENSE_CLIENT_ID 설정 시 AdSense 배너가 표시됩니다.
-      </div>
-    );
+    return null;
   }
 
   return (
     <ins
-      className={`adsbygoogle block min-h-24 ${className}`}
+      className={`adsbygoogle block ${className}`}
       data-ad-client={client}
       data-ad-slot={slot}
       data-ad-format="auto"
