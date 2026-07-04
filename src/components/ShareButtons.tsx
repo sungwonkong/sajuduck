@@ -11,8 +11,17 @@ type ShareButtonsProps = {
 export function ShareButtons({ title, text }: ShareButtonsProps) {
   const [copied, setCopied] = useState(false);
 
+  function getShareUrl() {
+    const url = new URL(window.location.href);
+
+    url.search = "";
+    url.hash = "";
+
+    return url.toString();
+  }
+
   async function share() {
-    const url = window.location.href;
+    const url = getShareUrl();
 
     if (navigator.share) {
       await navigator.share({ title, text, url });
@@ -23,7 +32,7 @@ export function ShareButtons({ title, text }: ShareButtonsProps) {
   }
 
   async function copy() {
-    await navigator.clipboard.writeText(window.location.href);
+    await navigator.clipboard.writeText(getShareUrl());
     setCopied(true);
     window.setTimeout(() => setCopied(false), 1800);
   }
@@ -49,7 +58,7 @@ export function ShareButtons({ title, text }: ShareButtonsProps) {
         </button>
       </div>
       <p className="mt-3 text-center text-xs font-bold text-zinc-500">
-        모바일 공유에서 카카오톡을 선택하면 결과 링크와 미리보기 이미지가 함께 공유됩니다.
+        친구가 링크를 누르면 첫 화면에서 자기 사주짤을 만들 수 있습니다.
       </p>
     </div>
   );

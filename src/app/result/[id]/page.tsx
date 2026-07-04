@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
 import { ArrowLeft, RotateCcw } from "lucide-react";
 import { AdBanner } from "@/components/AdBanner";
 import { ResultCard } from "@/components/ResultCard";
+import { ResultViewGate } from "@/components/ResultViewGate";
 import { ShareButtons } from "@/components/ShareButtons";
 import { getResultById, TOTAL_RESULT_COUNT } from "@/data/results";
 import { normalizeResultId } from "@/lib/fortune";
@@ -65,6 +67,10 @@ export default async function ResultPage({ params }: ResultPageProps) {
 
   return (
     <main className="min-h-screen bg-[#fffbeb] px-5 py-6">
+      <Suspense fallback={null}>
+        <ResultViewGate />
+      </Suspense>
+
       <div className="mx-auto max-w-4xl">
         <div className="mb-6 flex items-center justify-between gap-3">
           <Link href="/fortune" className="inline-flex items-center gap-2 rounded-full border-2 border-zinc-950 bg-white px-3 py-2 text-sm font-black shadow-[3px_3px_0_#111]">
