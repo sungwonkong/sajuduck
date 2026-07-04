@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { TOTAL_RESULT_COUNT } from "@/data/results";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://sajuzzal.vercel.app";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://sajuduck.vercel.app";
   const now = new Date();
   const staticRoutes = ["", "/fortune", "/privacy", "/contact"].map((route) => ({
     url: `${siteUrl}${route}`,
