@@ -21,7 +21,7 @@ export default function FortunePage() {
           <p className="text-sm font-black text-rose-500">SajuZZal Generator</p>
           <h1 className="mt-2 text-4xl font-black leading-tight text-zinc-950">내 사주짤 뽑기</h1>
           <p className="mx-auto mt-3 max-w-lg text-sm font-bold leading-6 text-zinc-700">
-            같은 입력값은 항상 같은 결과로 연결됩니다. 입력 정보는 저장하지 않고, 결과 ID 계산에만 사용합니다.
+            같은 입력값은 항상 같은 결과로 연결됩니다. 입력 정보는 서버에 저장하지 않고, 이 브라우저의 자동 입력과 결과 ID 계산에만 사용합니다.
           </p>
         </section>
 

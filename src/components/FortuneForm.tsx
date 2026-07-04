@@ -9,14 +9,18 @@ const STORAGE_KEY = "sajuzzal:last-input";
 
 const birthTimes = [
   { value: "unknown", label: "잘 모름" },
-  { value: "00-02", label: "00:00 - 02:59" },
-  { value: "03-05", label: "03:00 - 05:59" },
-  { value: "06-08", label: "06:00 - 08:59" },
-  { value: "09-11", label: "09:00 - 11:59" },
-  { value: "12-14", label: "12:00 - 14:59" },
-  { value: "15-17", label: "15:00 - 17:59" },
-  { value: "18-20", label: "18:00 - 20:59" },
-  { value: "21-23", label: "21:00 - 23:59" },
+  { value: "23-00", label: "자시 23:00 - 00:59" },
+  { value: "01-02", label: "축시 01:00 - 02:59" },
+  { value: "03-04", label: "인시 03:00 - 04:59" },
+  { value: "05-06", label: "묘시 05:00 - 06:59" },
+  { value: "07-08", label: "진시 07:00 - 08:59" },
+  { value: "09-10", label: "사시 09:00 - 10:59" },
+  { value: "11-12", label: "오시 11:00 - 12:59" },
+  { value: "13-14", label: "미시 13:00 - 14:59" },
+  { value: "15-16", label: "신시 15:00 - 16:59" },
+  { value: "17-18", label: "유시 17:00 - 18:59" },
+  { value: "19-20", label: "술시 19:00 - 20:59" },
+  { value: "21-22", label: "해시 21:00 - 22:59" },
 ];
 
 const genders: { value: Gender; label: string }[] = [
