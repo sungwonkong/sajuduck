@@ -16,10 +16,7 @@ export default function Home() {
             사주짤
             <span className="block text-rose-500">SajuZZal</span>
           </h1>
-          <p className="mt-5 max-w-xl text-lg font-bold leading-8 text-zinc-700">
-            생년월일과 태어난 시간으로 60갑자 기반의 120가지 결과 중 하나를 뽑아주는 가벼운 운세 카드입니다.
-            진지한 철학보다 오늘 단톡방에 던지기 좋은 드립을 목표로 합니다.
-          </p>
+          <AdBanner slot="1234567890" className="mt-5 max-w-xl" />
           <div className="mt-7 flex flex-col gap-3 sm:flex-row">
             <Link
               href="/fortune"
@@ -49,12 +46,15 @@ export default function Home() {
       </section>
 
       <section className="mx-auto max-w-3xl border-t-[3px] border-zinc-950 px-5 py-10">
-        <h2 className="text-2xl font-black text-zinc-950">주의문구</h2>
+        <p className="text-base font-bold leading-7 text-zinc-700">
+          생년월일과 태어난 시간으로 60갑자 기반의 120가지 결과 중 하나를 뽑아주는 가벼운 운세 카드입니다.
+          진지한 철학보다 오늘 단톡방에 던지기 좋은 드립을 목표로 합니다.
+        </p>
+        <h2 className="mt-8 text-2xl font-black text-zinc-950">주의문구</h2>
         <p className="mt-3 text-sm font-bold leading-7 text-zinc-700">
           사주짤은 오락용 콘텐츠입니다. 실제 사주명리 해석, 상담, 의학적·법률적·재정적 조언을 제공하지 않습니다.
           하루를 조금 더 웃기게 시작하기 위한 밈 카드로 즐겨주세요.
         </p>
-        <AdBanner slot="1234567890" className="mt-8" />
       </section>
     </main>
   );
