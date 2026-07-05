@@ -4,6 +4,9 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "개인정보 처리방침",
   description: "사주짤은 생년월일, 태어난 시간, 성별 입력값을 서버 DB에 저장하지 않습니다.",
+  alternates: {
+    canonical: "/privacy",
+  },
 };
 
 export default function PrivacyPage() {

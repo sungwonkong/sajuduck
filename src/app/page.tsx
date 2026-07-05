@@ -1,11 +1,25 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, ShieldCheck, Sparkles } from "lucide-react";
 import { AdBanner } from "@/components/AdBanner";
 import { DoodleCharacter } from "@/components/DoodleCharacter";
+import { createWebApplicationJsonLd, createWebsiteJsonLd, JsonLd, siteConfig } from "@/lib/seo";
+
+export const metadata: Metadata = {
+  title: {
+    absolute: "사주짤(SajuZZal) - 무료 사주 테스트와 웃긴 운세 밈 카드",
+  },
+  description: siteConfig.description,
+  alternates: {
+    canonical: "/",
+  },
+};
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#fffbeb]">
+      <JsonLd data={createWebsiteJsonLd()} />
+      <JsonLd data={createWebApplicationJsonLd()} />
       <section className="mx-auto flex w-full max-w-5xl flex-col gap-8 px-5 pb-12 pt-8 md:grid md:grid-cols-[1.05fr_0.95fr] md:items-center md:px-8 md:pt-14">
         <div>
           <div className="inline-flex items-center gap-2 rounded-full border-2 border-zinc-950 bg-lime-200 px-3 py-1 text-xs font-black text-zinc-950 shadow-[3px_3px_0_#111]">

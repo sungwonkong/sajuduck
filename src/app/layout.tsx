@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { siteConfig } from "@/lib/seo";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -12,30 +13,53 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://sajuduck.vercel.app";
 const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(siteConfig.url),
+  applicationName: `${siteConfig.name}(${siteConfig.alternateName})`,
   title: {
-    default: "사주짤(SajuZZal) - 웃긴 사주 밈 카드",
+    default: "사주짤(SajuZZal) - 무료 사주 테스트와 웃긴 운세 밈 카드",
     template: "%s | 사주짤",
   },
-  description:
-    "생년월일, 태어난 시간, 성별로 120가지 하찮고 웃긴 사주짤 결과 카드를 만들어보세요. 개인정보 저장 없이 즐기는 오락용 운세 밈 서비스입니다.",
-  keywords: ["사주", "운세", "밈", "사주 테스트", "카카오톡 공유", "SajuZZal"],
+  description: siteConfig.description,
+  keywords: siteConfig.keywords,
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  category: "entertainment",
   openGraph: {
-    title: "사주짤(SajuZZal)",
-    description: "오늘의 사주를 하찮고 웃긴 결과 카드로 뽑아보세요.",
-    url: siteUrl,
-    siteName: "사주짤",
+    title: "사주짤(SajuZZal) - 무료 사주 테스트",
+    description: siteConfig.description,
+    url: siteConfig.url,
+    siteName: siteConfig.name,
     locale: "ko_KR",
     type: "website",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "사주짤 무료 사주 테스트",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "사주짤(SajuZZal)",
-    description: "120가지 웃긴 사주 밈 카드 테스트",
+    title: "사주짤(SajuZZal) - 무료 사주 테스트",
+    description: siteConfig.description,
+    images: ["/opengraph-image"],
   },
 };
 

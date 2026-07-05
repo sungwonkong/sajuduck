@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Suspense } from "react";
 import { ArrowLeft, RotateCcw } from "lucide-react";
 import { AdBanner } from "@/components/AdBanner";
 import { ResultCard } from "@/components/ResultCard";
-import { ResultViewGate } from "@/components/ResultViewGate";
 import { ShareButtons } from "@/components/ShareButtons";
 import { getResultById, TOTAL_RESULT_COUNT } from "@/data/results";
 import { normalizeResultId } from "@/lib/fortune";
+import { createResultJsonLd, JsonLd, siteConfig } from "@/lib/seo";
 
 type ResultPageProps = {
   params: Promise<{
@@ -19,14 +18,22 @@ export async function generateMetadata({ params }: ResultPageProps): Promise<Met
   const { id } = await params;
   const resultId = normalizeResultId(id);
   const result = getResultById(resultId);
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://sajuduck.vercel.app";
-  const url = `${siteUrl}/result/${resultId}`;
+  const url = `${siteConfig.url}/result/${resultId}`;
   const imageUrl = `${url}/image.png`;
-  const description = `${result.oneLiner} 사주짤 ${resultId}번 결과를 확인해보세요.`;
+  const description = `${result.oneLiner} 무료 사주 테스트 사주짤 ${resultId}번 결과입니다.`;
 
   return {
-    title: result.title,
+    title: `${result.title} - 사주짤 ${resultId}번 결과`,
     description,
+    keywords: [
+      "사주 결과",
+      "사주 테스트 결과",
+      "오늘의 운세",
+      "무료 운세",
+      result.title,
+      result.oneLiner,
+      ...result.tags,
+    ],
     alternates: {
       canonical: url,
     },
@@ -67,9 +74,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
 
   return (
     <main className="min-h-screen bg-[#fffbeb] px-5 py-6">
-      <Suspense fallback={null}>
-        <ResultViewGate />
-      </Suspense>
+      <JsonLd data={createResultJsonLd(result, resultId)} />
 
       <div className="mx-auto max-w-4xl">
         <div className="mb-6 flex items-center justify-between gap-3">

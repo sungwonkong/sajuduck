@@ -58,7 +58,7 @@ export function ShareButtons({ title, text }: ShareButtonsProps) {
         </button>
       </div>
       <p className="mt-3 text-center text-xs font-bold text-zinc-500">
-        친구가 링크를 누르면 첫 화면에서 자기 사주짤을 만들 수 있습니다.
+        친구가 링크를 누르면 이 결과 카드를 바로 볼 수 있습니다.
       </p>
     </div>
   );

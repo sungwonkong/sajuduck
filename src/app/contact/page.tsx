@@ -4,6 +4,9 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "문의",
   description: "사주짤 서비스 문의 및 콘텐츠 제안 안내",
+  alternates: {
+    canonical: "/contact",
+  },
 };
 
 export default function ContactPage() {

@@ -100,7 +100,7 @@ export function FortuneForm() {
     }
 
     const resultId = mapInputToResultId({ birthDate, birthTime, gender });
-    router.push(`/result/${resultId}?view=1`);
+    router.push(`/result/${resultId}`);
   }
 
   return (

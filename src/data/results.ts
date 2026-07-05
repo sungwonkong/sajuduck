@@ -262,7 +262,7 @@ export const results: FortuneResult[] = Array.from({ length: TOTAL_RESULT_COUNT 
     element: elements[index % elements.length],
     characterMood: getCharacterMood(oneLiner, titleCore),
     oneLiner,
-    description: `${descriptionSeeds[index % descriptionSeeds.length]} ${oneLiner}라는 신호가 뜬 날이니, 너무 진지하게 붙잡기보다 가볍게 웃고 지나가면 운이 더 잘 붙습니다.`,
+    description: `${descriptionSeeds[index % descriptionSeeds.length]} 오늘의 신호는 "${oneLiner}"입니다. 너무 진지하게 붙잡기보다 가볍게 웃고 지나가면 운이 더 잘 붙습니다.`,
     ...grades,
     luckyItem: luckyItems[index % luckyItems.length],
     luckyColor: luckyColors[index % luckyColors.length],
